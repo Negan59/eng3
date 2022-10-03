@@ -1,8 +1,11 @@
 package com.filmesltda.filmes.model;
 
+import java.util.ArrayList;
+
+import com.filmesltda.filmes.DAO.DAOAssinatura;
 
 public class Assinatura {
-    private Long id;
+    private int id;
     private String nome;
     private String tipo;
     private double valor;
@@ -16,7 +19,7 @@ public class Assinatura {
         this.status = status;
     }
 
-    public Assinatura(Long id, String nome, String tipo, double valor, boolean status) {
+    public Assinatura(int id, String nome, String tipo, double valor, boolean status) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
@@ -32,11 +35,11 @@ public class Assinatura {
         this.status = status;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,26 +70,42 @@ public class Assinatura {
     Assinatura() {
     }
 
-    public final boolean gravarAssinatura() {
-        System.out.println("salvando assinatura de nome " + this.nome + " de valor "+this.valor);
-        return true;
-    }
-
-    public final boolean alterarAssinatura(){
-        System.out.println("alterando assinatura de nome "+this.nome);
-        return true;
+    public boolean salvar() {
+        DAOAssinatura dao = new DAOAssinatura();
+        if (dao.salvar(this)) {
+            return true;
+        }
+        return false;
 
     }
 
-    public final boolean excluirAssinatura(){
-        System.out.println("Excluindo assinatura de nome "+this.nome);
-        return true;
+    public boolean alterar() {
+        DAOAssinatura dao = new DAOAssinatura();
+        if (dao.alterar(this)) {
+            return true;
+        }
+        return false;
     }
 
+    public ArrayList<Assinatura> buscar(String filtro) {
+        DAOAssinatura dao = new DAOAssinatura();
+        ArrayList<Assinatura> lista = dao.buscar(filtro);
+        return lista;
+    }
 
-    public final boolean busca() {
-        System.out.println("retorna todas as assinaturas disponíveis");
-        return true;
+    public Assinatura buscarUm(int id) {
+        DAOAssinatura dao = new DAOAssinatura();
+        return dao.buscarUm(id);
+    }
+
+    public boolean apagar(int id) {
+        DAOAssinatura dao = new DAOAssinatura();
+        return dao.apagar(id);
+    }
+
+    public boolean ativar(int id) {
+        DAOAssinatura dao = new DAOAssinatura();
+        return dao.ativar(id);
     }
 
 }

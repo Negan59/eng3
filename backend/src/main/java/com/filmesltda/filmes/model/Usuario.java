@@ -1,28 +1,42 @@
 package com.filmesltda.filmes.model;
 
+import java.util.ArrayList;
+
+import com.filmesltda.filmes.DAO.DAOUsuario;
+
 public class Usuario {
-    private Long id;
+    private int id;
     private String nome;
     private String email;
     private String senha;
     private int nivel;
-    public Usuario(String nome, String email, String senha, int nivel) {
+    private boolean status;
+   
+    public Usuario(String nome, String email, String senha, int nivel, boolean status) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.nivel = nivel;
+        this.status = status;
     }
-    public Usuario(Long id, String nome, String email, String senha, int nivel) {
+    public Usuario(int id, String nome, String email, String senha, int nivel, boolean status) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.nivel = nivel;
+        this.status = status;
     }
-    public Long getId() {
+    public boolean isStatus() {
+        return status;
+    }
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public int getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getNome() {
@@ -50,33 +64,41 @@ public class Usuario {
         this.nivel = nivel;
     }
 
-    public boolean gravar(Usuario usuario){
-        System.out.println("Chama a DAO para gravar o usuario"+usuario.getNome());
-        return true;
+    public boolean salvar() {
+        DAOUsuario dao = new DAOUsuario();
+        if (dao.salvar(this)) {
+            return true;
+        }
+        return false;
+
     }
 
-    public boolean alterar(Usuario usuario){
-        System.out.println("Chama a DAO para alterar o usuario"+usuario.getNome());
-        return true;
+    public boolean alterar() {
+        DAOUsuario dao = new DAOUsuario();
+        if (dao.alterar(this)) {
+            return true;
+        }
+        return false;
     }
 
-    public boolean excluir(Long id){
-        System.out.println("Chama a DAO para alterar o usuario"+id);
-        return true;
+    public ArrayList<Usuario> buscar(String filtro) {
+        DAOUsuario dao = new DAOUsuario();
+        ArrayList<Usuario> lista = dao.buscar(filtro);
+        return lista;
     }
 
-    public boolean buscarPorId(Long id){
-        System.out.println("Chama a DAO para buscar o usuario"+id);
-        return true;
+    public Usuario buscarUm(int id) {
+        DAOUsuario dao = new DAOUsuario();
+        return dao.buscarUm(id);
     }
 
-    public boolean buscarTodos(){
-        System.out.println("Chama a DAO para buscar todos os usuarios");
-        return true;
+    public boolean apagar(int id) {
+        DAOUsuario dao = new DAOUsuario();
+        return dao.apagar(id);
     }
 
-    public boolean buscarPorNome(String nome){
-        System.out.println("Chama a DAO para buscar o usuario de nome"+nome);
-        return true;
+    public boolean ativar(int id) {
+        DAOUsuario dao = new DAOUsuario();
+        return dao.ativar(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.filmesltda.filmes.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public abstract class Transacao {
     private int id;

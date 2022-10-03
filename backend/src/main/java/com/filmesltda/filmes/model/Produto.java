@@ -15,6 +15,42 @@ public class Produto {
     private boolean status;
     private String responsavel;// produtora no caso de filme, editora no caso de livro e estúdio no caso de
                                // música
+    private String local;
+
+    public Produto(String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
+            boolean status, String responsavel, String local) {
+        this.titulo = titulo;
+        this.anoLancamento = anoLancamento;
+        this.descricao = descricao;
+        this.autor = autor;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.status = status;
+        this.responsavel = responsavel;
+        this.local = local;
+    }
+
+    public Produto(int id, String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
+            boolean status, String responsavel, String local) {
+        this.id = id;
+        this.titulo = titulo;
+        this.anoLancamento = anoLancamento;
+        this.descricao = descricao;
+        this.autor = autor;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.status = status;
+        this.responsavel = responsavel;
+        this.local = local;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
 
     public Produto() {
     }
@@ -27,30 +63,7 @@ public class Produto {
         this.status = status;
     }
 
-    public Produto(int id, String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
-            boolean status, String responsavel) {
-        this.id = id;
-        this.titulo = titulo;
-        this.anoLancamento = anoLancamento;
-        this.descricao = descricao;
-        this.autor = autor;
-        this.tipo = tipo;
-        this.valor = valor;
-        this.status = status;
-        this.responsavel = responsavel;
-    }
-
-    public Produto(String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
-            boolean status, String responsavel) {
-        this.titulo = titulo;
-        this.anoLancamento = anoLancamento;
-        this.descricao = descricao;
-        this.autor = autor;
-        this.tipo = tipo;
-        this.valor = valor;
-        this.status = status;
-        this.responsavel = responsavel;
-    }
+    
 
     public Double getValor() {
         return valor;
@@ -153,5 +166,12 @@ public class Produto {
         DAOProduto dao = new DAOProduto();
         return dao.ativar(id);
     }
+
+    public ArrayList<Produto> buscarAtivos() {
+        DAOProduto dao = new DAOProduto();
+        ArrayList<Produto> lista = dao.buscarAtivos();
+        return lista;
+    }
+    
 
 }
