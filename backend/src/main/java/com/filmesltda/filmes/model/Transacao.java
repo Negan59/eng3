@@ -1,24 +1,34 @@
 package com.filmesltda.filmes.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public abstract class Transacao {
     private int id;
-    private LocalDateTime data;
+    private LocalDate data;
     private Produto produto;
     private Usuario usuario;
+    private int tipo;
+    public int getTipo() {
+        return tipo;
+    }
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
     public Transacao() {
     }
-    public Transacao(LocalDateTime data, Produto produto, Usuario usuario) {
+    public Transacao(LocalDate data, Produto produto, Usuario usuario, int tipo) {
         this.data = data;
         this.produto = produto;
         this.usuario = usuario;
+        this.tipo = tipo;
     }
-    public Transacao(int id, LocalDateTime data, Produto produto, Usuario usuario) {
+    public Transacao(int id, LocalDate data, Produto produto, Usuario usuario,int tipo) {
         this.id = id;
         this.data = data;
         this.produto = produto;
         this.usuario = usuario;
+        this.tipo = tipo;
     }
     public int getId() {
         return id;
@@ -26,10 +36,10 @@ public abstract class Transacao {
     public void setId(int id) {
         this.id = id;
     }
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return data;
     }
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
     public Produto getProduto() {
@@ -46,17 +56,13 @@ public abstract class Transacao {
     }
 
     public abstract boolean salvar();
+
+    public abstract boolean atualizar();
+
+    public abstract Transacao buscarUm(int id);
+
+    public abstract ArrayList<Transacao> buscarTodos();
+
     
-    public boolean excluir(int id){
-        return true;
-    }
-
-    /*public Transacao buscar_um(int id){
-        
-    }*/
-
-    /*public ArrayList<Transacao> buscarTodos(){
-
-    }*/
     
 }

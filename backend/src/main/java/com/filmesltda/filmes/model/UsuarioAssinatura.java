@@ -61,19 +61,19 @@ public class UsuarioAssinatura {
 
     public boolean renovarAssinatura(int tipoPagamento){
         if(tipoPagamento == 1){
-            if(new PagamentoPorBoleto().pagar(assinatura, usuario)){
+            if(new PagamentoPorBoleto().pagarAssinatura(assinatura, usuario)){
                 System.out.println("aumenta a data em 1 mês");
                 alterar();
             }
 
         }else if(tipoPagamento == 2){
-            if(new PagamentoPorPix().pagar(assinatura, usuario)){
+            if(new PagamentoPorPix().pagarAssinatura(assinatura, usuario)){
                 System.out.println("aumenta a data em 1 mês");
                 alterar();
             }
         }
         else{
-            if(new PagamentoPorCartao().pagar(assinatura, usuario)){
+            if(new PagamentoPorCartao().pagarAssinatura(assinatura, usuario)){
                 System.out.println("aumenta a data em 1 mês");
                 alterar();
             }
@@ -81,25 +81,5 @@ public class UsuarioAssinatura {
         return true;
     }
 
-    public boolean extornarAssinatura(int tipoPagamento){
-        if(tipoPagamento == 1){
-            if(new PagamentoPorBoleto().extornar(assinatura, usuario)){
-                System.out.println("aumenta a data em 1 mês");
-                alterar();
-            }
-
-        }else if(tipoPagamento == 2){
-            if(new PagamentoPorPix().extornar(assinatura, usuario)){
-                System.out.println("aumenta a data em 1 mês");
-                alterar();
-            }
-        }
-        else{
-            if(new PagamentoPorCartao().extornar(assinatura, usuario)){
-                System.out.println("aumenta a data em 1 mês");
-                alterar();
-            }
-        }
-        return true;
-    }
+    
 }
