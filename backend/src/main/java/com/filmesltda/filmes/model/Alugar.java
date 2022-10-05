@@ -3,6 +3,8 @@ package com.filmesltda.filmes.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.filmesltda.filmes.DAO.DAOAlugar;
+
 public class Alugar extends Transacao{
     private LocalDate dataexp;
     
@@ -26,26 +28,40 @@ public class Alugar extends Transacao{
 
     @Override
     public boolean salvar() {
-        // TODO Auto-generated method stub
+        DAOAlugar dao = new DAOAlugar();
+        if (dao.salvar(this)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean atualizar() {
-        // TODO Auto-generated method stub
+        DAOAlugar dao = new DAOAlugar();
+        if (dao.alterar(this)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public Transacao buscarUm(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        DAOAlugar dao = new DAOAlugar();
+        Transacao trans = dao.buscarUm(id);
+        return trans;
     }
 
     @Override
-    public ArrayList<Transacao> buscarTodos() {
-        // TODO Auto-generated method stub
-        return null;
+    public ArrayList<Transacao> buscarTodos(int id) {
+        DAOAlugar dao = new DAOAlugar();
+        ArrayList<Transacao> lista = dao.buscarTodos(id);
+        return lista;
+    }
+
+    public ArrayList<Transacao> buscarValidos(int id) {
+        DAOAlugar dao = new DAOAlugar();
+        ArrayList<Transacao> lista = dao.buscarValidos(id);
+        return lista;
     }
     
 }

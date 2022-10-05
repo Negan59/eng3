@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.filmesltda.filmes.DAO.DAOProduto;
 import com.filmesltda.filmes.model.Erro;
 import com.filmesltda.filmes.model.Produto;
 
@@ -24,7 +23,13 @@ public class ProdutoController {
                 if (!p.getTipo().isEmpty()) {
                     if (!p.getTitulo().isEmpty()) {
                         if (!p.getResponsavel().isEmpty()) {
-                            if (!new DAOProduto().salvar(p)) {
+                            try {
+                                Files.copy(file.getInputStream(), Path.of(caminho), StandardCopyOption.REPLACE_EXISTING);
+                                p.setLocal(caminho);
+                            } catch (Exception e) {
+                                return new Erro("Erro no upload do arquivo", true, 500);
+                            }
+                            if (!p.salvar()) {
                                 return new Erro("Erro interno no banco de dados!!!", true,500);
                             }
                         }
@@ -41,12 +46,6 @@ public class ProdutoController {
             }
         } else {
             return new Erro("Preencha o nome do autor", true,400);
-        }
-        try {
-            Files.copy(file.getInputStream(), Path.of(caminho), StandardCopyOption.REPLACE_EXISTING);
-            p.setLocal(caminho);
-        } catch (Exception e) {
-            return new Erro("Erro no upload do arquivo", true, 500);
         }
         return new Erro("Sucesso", false,200);
 
@@ -58,7 +57,7 @@ public class ProdutoController {
                 if (!p.getTipo().isEmpty()) {
                     if (!p.getTitulo().isEmpty()) {
                         if (!p.getResponsavel().isEmpty()) {
-                            if (!new DAOProduto().alterar(p)) {
+                            if (!p.alterar()) {
                                 return new Erro("Erro interno no banco de dados!!!", true,500);
                             }
                         }
@@ -79,17 +78,21 @@ public class ProdutoController {
         return new Erro("Sucesso", false,200);
     }
 
-    public ArrayList<Produto> buscar(String filtro){
-        return new DAOProduto().buscar(filtro);
+    public ArrayList<Produto> buscarTodos(String filtro){
+        return new Produto().buscarTodos(filtro);
     }
 
     public ArrayList<Produto> buscarAtivos(String filtro){
-        return new DAOProduto().buscar(filtro);
+        return new Produto().buscarAtivos(filtro);
+    }
+
+    public ArrayList<Produto> buscarInativos(String filtro){
+        return new Produto().buscarInativos(filtro);
     }
 
     public Produto buscarum(int id){
         if(id>0){
-            return new DAOProduto().buscarUm(id);
+            return new Produto().buscarUm(id);
         }
         else{
             return new Produto();
@@ -99,7 +102,7 @@ public class ProdutoController {
     public Erro desativar(int id){
         if(id>0){
             try{
-                new DAOProduto().apagar(id);
+                new Produto().apagar(id);
             }catch(Exception e){
                 return new Erro("Não foi possível desativar", true, 500);
             }
@@ -111,7 +114,7 @@ public class ProdutoController {
     public Erro ativar(int id){
         if(id>0){
             try{
-                new DAOProduto().ativar(id);
+                new Produto().ativar(id);
             }catch(Exception e){
                 return new Erro("Não foi possível desativar", true, 500);
             }

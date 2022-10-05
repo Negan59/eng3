@@ -3,6 +3,8 @@ package com.filmesltda.filmes.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.filmesltda.filmes.DAO.DAOCompra;
+
 public class Compra extends Transacao {
     public Compra(int id, LocalDate data, Produto produto, Usuario usuario,int tipo){
         super(id, data,produto,usuario,tipo);
@@ -14,26 +16,33 @@ public class Compra extends Transacao {
 
     @Override
     public boolean salvar() {
-        // TODO Auto-generated method stub
+        DAOCompra dao = new DAOCompra();
+        if (dao.salvar(this)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean atualizar() {
-        // TODO Auto-generated method stub
+        DAOCompra dao = new DAOCompra();
+        if (dao.alterar(this)) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public Transacao buscarUm(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        DAOCompra dao = new DAOCompra();
+        Transacao trans = dao.buscarUm(id);
+        return trans;
     }
 
     @Override
-    public ArrayList<Transacao> buscarTodos() {
-        // TODO Auto-generated method stub
-        return null;
+    public ArrayList<Transacao> buscarTodos(int id) {
+        DAOCompra dao = new DAOCompra();
+        ArrayList<Transacao> lista = dao.buscarTodos(id);
+        return lista;
     }
-    
 }

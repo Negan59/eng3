@@ -39,9 +39,9 @@ public class DAOAlugar {
         return flag;
     }
 
-    public ArrayList<Transacao> buscarTodos() {
+    public ArrayList<Transacao> buscarTodos(int id) {
         ArrayList<Transacao> Lista = new ArrayList<>();
-        String sql = "select * from transacao";
+        String sql = "select * from transacao where trans_id = "+id+" and trans_tipo = 2";
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
         try {
@@ -71,9 +71,9 @@ public class DAOAlugar {
         return novo;
     }
 
-    public ArrayList<Transacao> buscarValidos() {
+    public ArrayList<Transacao> buscarValidos(int id) {
         ArrayList<Transacao> Lista = new ArrayList<>();
-        String sql = "select * from transacao where trans_dataexp>current_date";
+        String sql = "select * from transacao where trans_dataexp>current_date and trans_usuid = "+id+" and trans_tipo = 2";
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
         try {

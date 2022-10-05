@@ -30,7 +30,7 @@ public class DAOAssinatura {
         return flag;
     }
 
-    public ArrayList<Assinatura> buscar(String filtro) {
+    public ArrayList<Assinatura> buscarTodos(String filtro) {
         ArrayList<Assinatura> Lista = new ArrayList<>();
         String sql = "select * from assinatura";
         if (!filtro.isEmpty()) {
@@ -48,6 +48,46 @@ public class DAOAssinatura {
         }
         return Lista;
     } 
+
+    public ArrayList<Assinatura> buscarAtivos(String filtro) {
+        ArrayList<Assinatura> Lista = new ArrayList<>();
+        String sql = "select * from assinatura where ass_status = "+true;
+        if (!filtro.isEmpty()) {
+            sql = "select * from assinatura where ass_nome LIKE " + "'" + filtro + "'"+" and ass_status = "+true;
+        }
+        SingletonConexao con = SingletonConexao.getConexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            while (rs.next())
+                Lista.add(
+                        new Assinatura(rs.getInt("ass_id"), rs.getString("ass_nome"), rs.getString("ass_tipo"),
+                        rs.getDouble("ass_valor"), rs.getBoolean("ass_status")));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return Lista;
+    } 
+
+    public ArrayList<Assinatura> buscarInativos(String filtro) {
+        ArrayList<Assinatura> Lista = new ArrayList<>();
+        String sql = "select * from assinatura where ass_status = "+false;
+        if (!filtro.isEmpty()) {
+            sql = "select * from assinatura where ass_nome LIKE " + "'" + filtro + "'"+" and ass_status = "+false;
+        }
+        SingletonConexao con = SingletonConexao.getConexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            while (rs.next())
+                Lista.add(
+                        new Assinatura(rs.getInt("ass_id"), rs.getString("ass_nome"), rs.getString("ass_tipo"),
+                        rs.getDouble("ass_valor"), rs.getBoolean("ass_status")));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return Lista;
+    } 
+
+
 
     public Assinatura buscarUm(int id){
         Assinatura novo = null;

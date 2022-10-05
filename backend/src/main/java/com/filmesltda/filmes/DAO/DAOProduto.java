@@ -39,7 +39,7 @@ public class DAOProduto {
         return flag;
     }
 
-    public ArrayList<Produto> buscar(String filtro) {
+    public ArrayList<Produto> buscarTodos(String filtro) {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto";
         if (!filtro.isEmpty()) {
@@ -60,9 +60,33 @@ public class DAOProduto {
         return Lista;
     }
 
-    public ArrayList<Produto> buscarAtivos(){
+    public ArrayList<Produto> buscarAtivos(String filtro) {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto where prod_status = "+true;
+        if (!filtro.isEmpty()) {
+            sql = "select * from produto where prod_titulo LIKE " + "'" + filtro + "'"+" and prod_status = "+true;
+        }
+        SingletonConexao con = SingletonConexao.getConexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            while (rs.next())
+                Lista.add(
+                        new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
+                                rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
+                                rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
+                                rs.getString("prod_responsavel"),rs.getString("prod_local")));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return Lista;
+    }
+
+    public ArrayList<Produto> buscarInativos(String filtro) {
+        ArrayList<Produto> Lista = new ArrayList<>();
+        String sql = "select * from produto where prod_status = "+false;
+        if (!filtro.isEmpty()) {
+            sql = "select * from produto where prod_titulo LIKE " + "'" + filtro + "'"+" and prod_status = "+false;
+        }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
         try {

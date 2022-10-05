@@ -67,7 +67,7 @@ public class Assinatura {
         this.valor = valor;
     }
 
-    Assinatura() {
+    public Assinatura() {
     }
 
     public boolean salvar() {
@@ -87,9 +87,21 @@ public class Assinatura {
         return false;
     }
 
-    public ArrayList<Assinatura> buscar(String filtro) {
+    public ArrayList<Assinatura> buscarTodos(String filtro) {
         DAOAssinatura dao = new DAOAssinatura();
-        ArrayList<Assinatura> lista = dao.buscar(filtro);
+        ArrayList<Assinatura> lista = dao.buscarTodos(filtro);
+        return lista;
+    }
+
+    public ArrayList<Assinatura> buscarAtivos(String filtro) {
+        DAOAssinatura dao = new DAOAssinatura();
+        ArrayList<Assinatura> lista = dao.buscarAtivos(filtro);
+        return lista;
+    }
+
+    public ArrayList<Assinatura> buscarInativos(String filtro) {
+        DAOAssinatura dao = new DAOAssinatura();
+        ArrayList<Assinatura> lista = dao.buscarInativos(filtro);
         return lista;
     }
 

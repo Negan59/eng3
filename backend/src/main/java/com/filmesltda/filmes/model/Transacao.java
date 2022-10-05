@@ -61,7 +61,7 @@ public abstract class Transacao {
 
     public abstract Transacao buscarUm(int id);
 
-    public abstract ArrayList<Transacao> buscarTodos();
+    public abstract ArrayList<Transacao> buscarTodos(int id);
 
     
     

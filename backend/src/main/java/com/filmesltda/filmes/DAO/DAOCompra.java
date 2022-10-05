@@ -37,9 +37,9 @@ public class DAOCompra {
         return flag;
     }
 
-    public ArrayList<Transacao> buscarTodos() {
+    public ArrayList<Transacao> buscarTodos(int id) {
         ArrayList<Transacao> Lista = new ArrayList<>();
-        String sql = "select * from transacao";
+        String sql = "select * from transacao where trans_usuid = "+id+" and trans_tipo = 1";
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
         try {
@@ -69,19 +69,4 @@ public class DAOCompra {
         return novo;
     }
 
-    public ArrayList<Transacao> buscarValidos() {
-        ArrayList<Transacao> Lista = new ArrayList<>();
-        String sql = "select * from transacao where trans_dataexp>current_date";
-        SingletonConexao con = SingletonConexao.getConexao();
-        ResultSet rs = con.consultar(sql);
-        try {
-            while (rs.next())
-                Lista.add(
-                        new Compra(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(), new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
-                                new DAOUsuario().buscarUm(rs.getInt("trans_usuid")), rs.getInt("trans_tipo")));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return Lista;
-    }
 }

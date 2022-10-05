@@ -15,18 +15,6 @@ public class MidiaDigitalAlugar extends TransacaoController {
     }
 
     @Override
-    public boolean liberarAcesso() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean configurarEntrega() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
     public boolean registraTransacao() {
         // TODO Auto-generated method stub
         return false;

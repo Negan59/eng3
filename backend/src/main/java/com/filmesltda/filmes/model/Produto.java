@@ -146,9 +146,21 @@ public class Produto {
         return false;
     }
 
-    public ArrayList<Produto> buscar(String filtro) {
+    public ArrayList<Produto> buscarTodos(String filtro) {
         DAOProduto dao = new DAOProduto();
-        ArrayList<Produto> lista = dao.buscar(filtro);
+        ArrayList<Produto> lista = dao.buscarTodos(filtro);
+        return lista;
+    }
+
+    public ArrayList<Produto> buscarAtivos(String filtro) {
+        DAOProduto dao = new DAOProduto();
+        ArrayList<Produto> lista = dao.buscarAtivos(filtro);
+        return lista;
+    }
+
+    public ArrayList<Produto> buscarInativos(String filtro) {
+        DAOProduto dao = new DAOProduto();
+        ArrayList<Produto> lista = dao.buscarInativos(filtro);
         return lista;
     }
 
@@ -165,12 +177,6 @@ public class Produto {
     public boolean ativar(int id) {
         DAOProduto dao = new DAOProduto();
         return dao.ativar(id);
-    }
-
-    public ArrayList<Produto> buscarAtivos() {
-        DAOProduto dao = new DAOProduto();
-        ArrayList<Produto> lista = dao.buscarAtivos();
-        return lista;
     }
     
 

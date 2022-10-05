@@ -14,17 +14,6 @@ public class MidiaFisicaComprar extends TransacaoController {
         return false;
     }
 
-    @Override
-    public boolean liberarAcesso() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean configurarEntrega() {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
     @Override
     public boolean registraTransacao() {

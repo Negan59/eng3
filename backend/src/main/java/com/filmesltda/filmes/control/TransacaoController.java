@@ -9,6 +9,4 @@ public abstract class TransacaoController {
     public abstract boolean cancelar();
     public abstract boolean registraTransacao();
     public abstract boolean emitirComprovante();
-    public abstract boolean liberarAcesso();
-    public abstract boolean configurarEntrega();
 }
