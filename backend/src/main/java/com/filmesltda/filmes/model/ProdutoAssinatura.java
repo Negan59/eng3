@@ -1,12 +1,15 @@
 package com.filmesltda.filmes.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.filmesltda.filmes.DAO.DAOProdutoAssinatura;
 
 public class ProdutoAssinatura {
     private Produto produto;
     private Assinatura assinatura;
-    private LocalDateTime data;
-    public ProdutoAssinatura(Produto produto, Assinatura assinatura, LocalDateTime data) {
+    private LocalDate data;
+    public ProdutoAssinatura(Produto produto, Assinatura assinatura, LocalDate data) {
         this.produto = produto;
         this.assinatura = assinatura;
         this.data = data;
@@ -23,41 +26,37 @@ public class ProdutoAssinatura {
     public void setAssinatura(Assinatura assinatura) {
         this.assinatura = assinatura;
     }
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return data;
     }
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public boolean gravar(){
-        System.out.println("gravando o produto "+this.produto.getTitulo()+" na assinatura "+this.assinatura.getNome());
-        return true;
+    public boolean salvar(){
+        DAOProdutoAssinatura dao = new DAOProdutoAssinatura();
+        if (dao.salvar(this.assinatura,this.produto)) {
+            return true;
+        }
+        return false;
     }
 
-    public boolean alterar(){
-        System.out.println("alterando o produto "+this.produto.getTitulo()+" na assinatura "+this.assinatura.getNome());
-        return true;
+    public boolean excluir(int ass_id,int prod_id){
+        DAOProdutoAssinatura dao = new DAOProdutoAssinatura();
+        if (dao.excluir(ass_id,prod_id)) {
+            return true;
+        }
+        return false;
     }
 
-    public boolean excluir(){
-        System.out.println("excluindo o produto "+this.produto.getTitulo()+" na assinatura "+this.assinatura.getNome());
-        return true;
+    public ProdutoAssinatura buscarUm(int ass_id,int prod_id){
+        DAOProdutoAssinatura dao = new DAOProdutoAssinatura();
+        return dao.buscarUm(prod_id, ass_id);
     }
-
-    public boolean buscar(){
-        System.out.println("buscando o produto "+this.produto.getTitulo()+" na assinatura "+this.assinatura.getNome());
-        return true;
-    }
-
-    public boolean buscarPorAssinatura(int id){
-        System.out.println("buscando todos os produtos "+" na assinatura "+id);
-        return true;
-    }
-
-    public boolean buscarPorProduto(int id){
-        System.out.println("buscando o produto "+id+" em todas as assinaturas");
-        return true;
+    public ArrayList<ProdutoAssinatura> buscarPorAssinatura(int ass_id) {
+        DAOProdutoAssinatura dao = new DAOProdutoAssinatura();
+        ArrayList<ProdutoAssinatura> lista = dao.buscarPorAssinatura(ass_id);
+        return lista;
     }
 
 }

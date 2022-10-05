@@ -27,6 +27,8 @@ public class Usuario {
         this.nivel = nivel;
         this.status = status;
     }
+    public Usuario() {
+    }
     public boolean isStatus() {
         return status;
     }
@@ -81,9 +83,21 @@ public class Usuario {
         return false;
     }
 
-    public ArrayList<Usuario> buscar(String filtro) {
+    public ArrayList<Usuario> buscarTodos(String filtro) {
         DAOUsuario dao = new DAOUsuario();
-        ArrayList<Usuario> lista = dao.buscar(filtro);
+        ArrayList<Usuario> lista = dao.buscarTodos(filtro);
+        return lista;
+    }
+
+    public ArrayList<Usuario> buscarAtivos(String filtro) {
+        DAOUsuario dao = new DAOUsuario();
+        ArrayList<Usuario> lista = dao.buscarAtivos(filtro);
+        return lista;
+    }
+
+    public ArrayList<Usuario> buscarInativos(String filtro) {
+        DAOUsuario dao = new DAOUsuario();
+        ArrayList<Usuario> lista = dao.buscarInativos(filtro);
         return lista;
     }
 
@@ -100,5 +114,10 @@ public class Usuario {
     public boolean ativar(int id) {
         DAOUsuario dao = new DAOUsuario();
         return dao.ativar(id);
+    }
+
+    public Usuario buscarEmail(String email){
+        DAOUsuario dao = new DAOUsuario();
+        return dao.buscarEmail(email);
     }
 }

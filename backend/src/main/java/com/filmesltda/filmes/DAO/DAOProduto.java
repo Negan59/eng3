@@ -8,7 +8,7 @@ import com.filmesltda.filmes.model.SingletonConexao;
 
 public class DAOProduto {
     public boolean salvar(Produto p) {
-        String sql = "insert into produto (prod_titulo, prod_ano, prod_desc,prod_autor, prod_tipo, prod_valor, prod_responsavel,prod_status,prod_local) values ('$1','$2','$3','$4','$5','$6','$7','$8','$9')";
+        String sql = "insert into produto (prod_titulo, prod_ano, prod_desc,prod_autor, prod_tipo, prod_valor, prod_responsavel,prod_status,prod_url) values ('$1','$2','$3','$4','$5','$6','$7','$8','$9')";
         sql = sql.replace("$1", p.getTitulo());
         sql = sql.replace("$2", "" + p.getAnoLancamento());
         sql = sql.replace("$3", p.getDescricao());
@@ -17,7 +17,7 @@ public class DAOProduto {
         sql = sql.replace("$6", "" + p.getValor());
         sql = sql.replace("$7", p.getResponsavel());
         sql = sql.replace("$8", "" + p.isStatus());
-        sql = sql.replace("$9", p.getLocal());
+        sql = sql.replace("$9", p.getUrl());
         SingletonConexao con = SingletonConexao.getConexao();
         boolean flag = con.manipular(sql);
         return flag;
@@ -53,7 +53,7 @@ public class DAOProduto {
                         new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
                                 rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
                                 rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
-                                rs.getString("prod_responsavel"),rs.getString("prod_local")));
+                                rs.getString("prod_responsavel"),rs.getString("prod_url")));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -74,7 +74,7 @@ public class DAOProduto {
                         new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
                                 rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
                                 rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
-                                rs.getString("prod_responsavel"),rs.getString("prod_local")));
+                                rs.getString("prod_responsavel"),rs.getString("prod_url")));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -95,7 +95,7 @@ public class DAOProduto {
                         new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
                                 rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
                                 rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
-                                rs.getString("prod_responsavel"),rs.getString("prod_local")));
+                                rs.getString("prod_responsavel"),rs.getString("prod_url")));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -111,7 +111,7 @@ public class DAOProduto {
             if (rs.next())
                 novo = new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
                         rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
-                        rs.getDouble("prod_valor"), rs.getBoolean("prod_status"), rs.getString("prod_responsavel"),rs.getString("prod_local"));
+                        rs.getDouble("prod_valor"), rs.getBoolean("prod_status"), rs.getString("prod_responsavel"),rs.getString("prod_url"));
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -15,10 +15,10 @@ public class Produto {
     private boolean status;
     private String responsavel;// produtora no caso de filme, editora no caso de livro e estúdio no caso de
                                // música
-    private String local;
+    private String url;
 
     public Produto(String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
-            boolean status, String responsavel, String local) {
+            boolean status, String responsavel, String url) {
         this.titulo = titulo;
         this.anoLancamento = anoLancamento;
         this.descricao = descricao;
@@ -27,11 +27,11 @@ public class Produto {
         this.valor = valor;
         this.status = status;
         this.responsavel = responsavel;
-        this.local = local;
+        this.url = url;
     }
 
     public Produto(int id, String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
-            boolean status, String responsavel, String local) {
+            boolean status, String responsavel, String url) {
         this.id = id;
         this.titulo = titulo;
         this.anoLancamento = anoLancamento;
@@ -41,15 +41,15 @@ public class Produto {
         this.valor = valor;
         this.status = status;
         this.responsavel = responsavel;
-        this.local = local;
+        this.url = url;
     }
 
-    public String getLocal() {
-        return local;
+    public String getUrl() {
+        return url;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Produto() {
