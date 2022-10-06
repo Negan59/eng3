@@ -15,9 +15,12 @@ public class Produto {
     private boolean status;
     private String responsavel;
     private String url;
+    private String foto;
+
+    
 
     public Produto(String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
-            boolean status, String responsavel, String url) {
+            boolean status, String responsavel, String url, String foto) {
         this.titulo = titulo;
         this.anoLancamento = anoLancamento;
         this.descricao = descricao;
@@ -27,10 +30,11 @@ public class Produto {
         this.status = status;
         this.responsavel = responsavel;
         this.url = url;
+        this.foto = foto;
     }
 
     public Produto(int id, String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
-            boolean status, String responsavel, String url) {
+            boolean status, String responsavel, String url, String foto) {
         this.id = id;
         this.titulo = titulo;
         this.anoLancamento = anoLancamento;
@@ -41,6 +45,15 @@ public class Produto {
         this.status = status;
         this.responsavel = responsavel;
         this.url = url;
+        this.foto = foto;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getUrl() {
