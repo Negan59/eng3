@@ -38,7 +38,7 @@ public class DAOUsuario {
         ArrayList<Usuario> Lista = new ArrayList<>();
         String sql = "select * from usuario";
         if (!filtro.isEmpty()) {
-            sql = "select * from usuario where usu_nome LIKE " + "'" + filtro + "'";
+            sql = "select * from usuario where usu_nome LIKE " + "'%" + filtro + "%'";
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -57,7 +57,7 @@ public class DAOUsuario {
         ArrayList<Usuario> Lista = new ArrayList<>();
         String sql = "select * from usuario where usu_status = "+true;
         if (!filtro.isEmpty()) {
-            sql = "select * from usuario where usu_nome LIKE " + "'" + filtro + "'"+" and usu_status = "+true;
+            sql = "select * from usuario where usu_nome LIKE " + "'%" + filtro + "%'"+" and usu_status = "+true;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -76,7 +76,7 @@ public class DAOUsuario {
         ArrayList<Usuario> Lista = new ArrayList<>();
         String sql = "select * from usuario where usu_status = "+false;
         if (!filtro.isEmpty()) {
-            sql = "select * from usuario where usu_nome LIKE " + "'" + filtro + "'"+" and usu_status = "+false;
+            sql = "select * from usuario where usu_nome LIKE " + "'%" + filtro + "%'"+" and usu_status = "+false;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);

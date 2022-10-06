@@ -10,7 +10,7 @@ public class DAOProduto {
     public boolean salvar(Produto p) {
         String sql = "insert into produto (prod_titulo, prod_ano, prod_desc,prod_autor, prod_tipo, prod_valor, prod_responsavel,prod_status,prod_url) values ('$1','$2','$3','$4','$5','$6','$7','$8','$9')";
         sql = sql.replace("$1", p.getTitulo());
-        sql = sql.replace("$2", "" + p.getAnoLancamento());
+        sql = sql.replace("$2", "" + p.getAnoLancamento()); 
         sql = sql.replace("$3", p.getDescricao());
         sql = sql.replace("$4", p.getAutor());
         sql = sql.replace("$5", p.getTipo());
@@ -43,7 +43,7 @@ public class DAOProduto {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto";
         if (!filtro.isEmpty()) {
-            sql = "select * from produto where prod_titulo LIKE " + "'" + filtro + "'";
+            sql = "select * from produto where prod_titulo LIKE " + "'%" + filtro + "%'";
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -64,7 +64,7 @@ public class DAOProduto {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto where prod_status = "+true;
         if (!filtro.isEmpty()) {
-            sql = "select * from produto where prod_titulo LIKE " + "'" + filtro + "'"+" and prod_status = "+true;
+            sql = "select * from produto where prod_titulo LIKE " + "'%" + filtro + "%'"+" and prod_status = "+true;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -85,7 +85,7 @@ public class DAOProduto {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto where prod_status = "+false;
         if (!filtro.isEmpty()) {
-            sql = "select * from produto where prod_titulo LIKE " + "'" + filtro + "'"+" and prod_status = "+false;
+            sql = "select * from produto where prod_titulo LIKE " + "'%" + filtro + "%'"+" and prod_status = "+false;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);

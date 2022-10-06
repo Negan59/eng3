@@ -3,13 +3,13 @@ package com.filmesltda.filmes.control;
 import java.util.ArrayList;
 
 
-import org.springframework.web.multipart.MultipartFile;
 
 import com.filmesltda.filmes.model.Erro;
 import com.filmesltda.filmes.model.Produto;
 
 public class ProdutoController {
-    public Erro salvar(Produto p, MultipartFile file) {
+    public ProdutoController(){}
+    public Erro salvar(Produto p) {
         if (!p.getAutor().isEmpty()) {
             if (!p.getDescricao().isEmpty()) {
                 if (!p.getTipo().isEmpty()) {

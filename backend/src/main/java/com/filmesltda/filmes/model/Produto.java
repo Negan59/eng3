@@ -8,13 +8,12 @@ public class Produto {
     private int id;
     private String titulo;
     private int anoLancamento;
-    private String descricao; // letra no caso de música, trailer no caso de filme e sinopse no caso de livro
+    private String descricao; 
     private String autor;
     private String tipo;
     private Double valor;
     private boolean status;
-    private String responsavel;// produtora no caso de filme, editora no caso de livro e estúdio no caso de
-                               // música
+    private String responsavel;
     private String url;
 
     public Produto(String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,

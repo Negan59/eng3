@@ -9,7 +9,9 @@ public class LoginController {
         Usuario u = new Usuario().buscarEmail(email);
         if(u != null){
             if(senha.equals(u.getSenha())){
-                return new Login(true,u.getNivel());
+                if(u.isStatus()){
+                    return new Login(true,u.getNivel());
+                }
             }else{
                 return new Login(false, 0);
             }
