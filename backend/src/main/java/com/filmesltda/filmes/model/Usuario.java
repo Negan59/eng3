@@ -9,23 +9,33 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    private String url;
     private int nivel;
     private boolean status;
    
-    public Usuario(String nome, String email, String senha, int nivel, boolean status) {
+    
+    public Usuario(String nome, String email, String senha, String url, int nivel, boolean status) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.url = url;
         this.nivel = nivel;
         this.status = status;
     }
-    public Usuario(int id, String nome, String email, String senha, int nivel, boolean status) {
+    public Usuario(int id, String nome, String email, String senha, String url, int nivel, boolean status) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.url = url;
         this.nivel = nivel;
         this.status = status;
+    }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
     }
     public Usuario() {
     }

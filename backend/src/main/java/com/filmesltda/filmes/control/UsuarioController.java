@@ -6,7 +6,10 @@ import com.filmesltda.filmes.model.Erro;
 import com.filmesltda.filmes.model.Usuario;
 
 public class UsuarioController {
+    public UsuarioController(){}
     public Erro salvar(Usuario usuario){
+        usuario.setNivel(0);
+        usuario.setStatus(true);
         if(!usuario.getEmail().isEmpty()){
             if(!usuario.getNome().isEmpty()){
                 if(usuario.getSenha().length() >= 5){
