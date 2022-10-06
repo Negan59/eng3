@@ -192,9 +192,9 @@ public class Rotas {
 
     //Usuario - Assinatura
 
-    @PostMapping("/usuarioassinatura")
-    public ResponseEntity<Erro> inserirUA(@RequestBody ArrayList<UsuarioAssinatura> lista) {
-        return new ResponseEntity<>(new UsuarioAssinaturaController().salvar(lista), HttpStatus.OK);
+    @PostMapping("/usuarioassinatura/{tipo}")
+    public ResponseEntity<Erro> inserirUA(@RequestBody ArrayList<UsuarioAssinatura> lista,@PathVariable(value = "tipo")int tipo) {
+        return new ResponseEntity<>(new UsuarioAssinaturaController().salvar(lista,tipo), HttpStatus.OK);
     }
 
     @DeleteMapping("/usuarioassinatura/excluir")

@@ -34,7 +34,14 @@ public class UsuarioAssinatura {
         this.dataExpiracao = dataExpiracao;
     }
 
-    public boolean salvar(){
+    public boolean salvar(int tipoPagamento){
+        if(tipoPagamento == 1){
+            new PagamentoPorBoleto().pagarAssinatura(this.assinatura, this.usuario);
+        }else if(tipoPagamento == 2){
+            new PagamentoPorCartao().pagarAssinatura(this.assinatura, this.usuario);
+        }else{
+            new PagamentoPorPix().pagarAssinatura(this.assinatura, this.usuario);
+        }
         DAOUsuarioAssinatura dao = new DAOUsuarioAssinatura();
         if (dao.salvar(this)) {
             return true;

@@ -11,10 +11,10 @@ public class UsuarioAssinaturaController {
     public UsuarioAssinaturaController() {
     }
 
-    public Erro salvar(ArrayList<UsuarioAssinatura> lista) {
+    public Erro salvar(ArrayList<UsuarioAssinatura> lista,int tipoPagamento) {
         Usuario u = lista.get(0).getUsuario();
         for (int i = 0; i < lista.size(); i++) {
-            if (!new UsuarioAssinatura(u, lista.get(i).getAssinatura(), lista.get(i).getDataExpiracao()).salvar()) {
+            if (!new UsuarioAssinatura(u, lista.get(i).getAssinatura(), lista.get(i).getDataExpiracao()).salvar(tipoPagamento)) {
                 return new Erro("Erro no banco de dados", true, 500);
             }
         }
