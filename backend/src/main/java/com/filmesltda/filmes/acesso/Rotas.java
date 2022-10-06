@@ -1,5 +1,7 @@
 package com.filmesltda.filmes.acesso;
 
+import java.util.ArrayList;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.filmesltda.filmes.control.AssinaturaController;
 import com.filmesltda.filmes.control.LoginController;
+import com.filmesltda.filmes.control.ProdutoAssinaturaController;
 import com.filmesltda.filmes.control.ProdutoController;
 import com.filmesltda.filmes.control.UsuarioController;
 import com.filmesltda.filmes.model.Assinatura;
 import com.filmesltda.filmes.model.Erro;
 import com.filmesltda.filmes.model.Login;
 import com.filmesltda.filmes.model.Produto;
+import com.filmesltda.filmes.model.ProdutoAssinatura;
 import com.filmesltda.filmes.model.Usuario;
 
 @CrossOrigin
@@ -150,5 +154,27 @@ public class Rotas {
     @PutMapping("/assinatura/desativar/{id}")
     public ResponseEntity<Erro> desativarAssinatura(@PathVariable(value = "id") int id) {
         return new ResponseEntity<>(new AssinaturaController().desativar(id), HttpStatus.OK);
+    }
+
+    //Produto - Assinatura
+
+    @PostMapping("/produtoassinatura")
+    public ResponseEntity<Erro> inserirPA(@RequestBody ArrayList<ProdutoAssinatura> lista) {
+        return new ResponseEntity<>(new ProdutoAssinaturaController().salvar(lista), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/produtoassinatura/excluir")
+    public ResponseEntity<Erro> excluirPA(@RequestBody ProdutoAssinatura pa){
+        return new ResponseEntity<>(new ProdutoAssinaturaController().excluir(pa), HttpStatus.OK);
+    }
+
+    @GetMapping("/produtoassinatura/buscar")
+    public ResponseEntity<ProdutoAssinatura> buscarUmaPA(@RequestBody ProdutoAssinatura pa) {
+        return new ResponseEntity<>(new ProdutoAssinaturaController().buscarUm(pa), HttpStatus.OK);
+    }
+
+    @GetMapping("/produtoassinatura/buscarassinatura")
+    public ResponseEntity<Object> buscarPorAssinatura(@RequestBody Assinatura a) {
+        return new ResponseEntity<>(new ProdutoAssinaturaController().buscarPorAssinatura(a), HttpStatus.OK);
     }
 }

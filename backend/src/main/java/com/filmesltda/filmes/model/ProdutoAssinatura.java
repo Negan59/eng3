@@ -9,6 +9,9 @@ public class ProdutoAssinatura {
     private Produto produto;
     private Assinatura assinatura;
     private LocalDate data;
+
+    public ProdutoAssinatura(){}
+
     public ProdutoAssinatura(Produto produto, Assinatura assinatura, LocalDate data) {
         this.produto = produto;
         this.assinatura = assinatura;

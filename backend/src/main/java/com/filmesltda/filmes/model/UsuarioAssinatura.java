@@ -1,12 +1,12 @@
 package com.filmesltda.filmes.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class UsuarioAssinatura {
     private Usuario usuario;
     private Assinatura assinatura;
-    private LocalDateTime dataExpiracao;
-    public UsuarioAssinatura(Usuario usuario, Assinatura assinatura, LocalDateTime dataExpiracao) {
+    private LocalDate dataExpiracao;
+    public UsuarioAssinatura(Usuario usuario, Assinatura assinatura, LocalDate dataExpiracao) {
         this.usuario = usuario;
         this.assinatura = assinatura;
         this.dataExpiracao = dataExpiracao;
@@ -23,10 +23,10 @@ public class UsuarioAssinatura {
     public void setAssinatura(Assinatura assinatura) {
         this.assinatura = assinatura;
     }
-    public LocalDateTime getDataExpiracao() {
+    public LocalDate getDataExpiracao() {
         return dataExpiracao;
     }
-    public void setDataExpiracao(LocalDateTime dataExpiracao) {
+    public void setDataExpiracao(LocalDate dataExpiracao) {
         this.dataExpiracao = dataExpiracao;
     }
 

@@ -48,7 +48,7 @@ public class DAOProdutoAssinatura {
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
         try {
-            if (rs.next())
+            while (rs.next())
                pa.add(new ProdutoAssinatura(new DAOProduto().buscarUm(rs.getInt("pa_prod_id")),new DAOAssinatura().buscarUm(rs.getInt("pa_ass_id")),rs.getDate("pa_data").toLocalDate()));
         } catch (Exception e) {
             System.out.println(e);
