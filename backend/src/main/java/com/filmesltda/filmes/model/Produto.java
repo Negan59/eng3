@@ -16,8 +16,43 @@ public class Produto {
     private String responsavel;
     private String url;
     private String foto;
+    private int vendidos;
+    private int alugados;
 
     
+
+    public Produto(int id, String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
+            boolean status, String responsavel, String url, String foto, int vendidos, int alugados) {
+        this.id = id;
+        this.titulo = titulo;
+        this.anoLancamento = anoLancamento;
+        this.descricao = descricao;
+        this.autor = autor;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.status = status;
+        this.responsavel = responsavel;
+        this.url = url;
+        this.foto = foto;
+        this.vendidos = vendidos;
+        this.alugados = alugados;
+    }
+
+    public int getVendidos() {
+        return vendidos;
+    }
+
+    public void setVendidos(int vendidos) {
+        this.vendidos = vendidos;
+    }
+
+    public int getAlugados() {
+        return alugados;
+    }
+
+    public void setAlugados(int alugados) {
+        this.alugados = alugados;
+    }
 
     public Produto(String titulo, int anoLancamento, String descricao, String autor, String tipo, Double valor,
             boolean status, String responsavel, String url, String foto) {
@@ -150,6 +185,24 @@ public class Produto {
 
     }
 
+    public boolean incrementarVenda() {
+        DAOProduto dao = new DAOProduto();
+        if (dao.incrementarVenda(this)) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean incrementarAluguel() {
+        DAOProduto dao = new DAOProduto();
+        if (dao.incrementarAluguel(this)) {
+            return true;
+        }
+        return false;
+
+    }
+
     public boolean alterar() {
         DAOProduto dao = new DAOProduto();
         if (dao.alterar(this)) {
@@ -175,6 +228,19 @@ public class Produto {
         ArrayList<Produto> lista = dao.buscarInativos(filtro);
         return lista;
     }
+
+    public ArrayList<Produto> buscarMaisVendidos() {
+        DAOProduto dao = new DAOProduto();
+        ArrayList<Produto> lista = dao.buscarMaisVendidos();
+        return lista;
+    }
+
+    public ArrayList<Produto> buscarMaisAlugados() {
+        DAOProduto dao = new DAOProduto();
+        ArrayList<Produto> lista = dao.buscarMaisAlugados();
+        return lista;
+    }
+
 
     public Produto buscarUm(int id) {
         DAOProduto dao = new DAOProduto();

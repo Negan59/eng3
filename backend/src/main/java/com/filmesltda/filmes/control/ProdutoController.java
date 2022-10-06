@@ -77,6 +77,14 @@ public class ProdutoController {
         return new Produto().buscarInativos(filtro);
     }
 
+    public ArrayList<Produto> buscarMaisVendidos(){
+        return new Produto().buscarMaisVendidos();
+    }
+
+    public ArrayList<Produto> buscarMaisAlugados(){
+        return new Produto().buscarMaisAlugados();
+    }
+
     public Produto buscarum(int id){
         if(id>0){
             return new Produto().buscarUm(id);

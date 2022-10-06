@@ -106,6 +106,16 @@ public class Rotas {
         return new ResponseEntity<>(new ProdutoController().buscarInativos(filtro), HttpStatus.OK);
     }
 
+    @GetMapping("/produto/buscarmaisvendidos")
+    public ResponseEntity<Object> buscarMaisVendidos() {
+        return new ResponseEntity<>(new ProdutoController().buscarMaisVendidos(), HttpStatus.OK);
+    }
+
+    @GetMapping("/produto/buscarmaisalugados")
+    public ResponseEntity<Object> buscarMaisAlugados() {
+        return new ResponseEntity<>(new ProdutoController().buscarMaisAlugados(), HttpStatus.OK);
+    }
+
     @PutMapping("/produto/ativar/{id}")
     public ResponseEntity<Erro> ativarProduto(@PathVariable(value = "id") int id) {
         return new ResponseEntity<>(new ProdutoController().ativar(id), HttpStatus.OK);

@@ -42,6 +42,22 @@ public class DAOProduto {
         return flag;
     }
 
+    public boolean incrementarVenda(Produto p){
+        String sql = "update produto set prod_vendidos = '$1' where prod_id = "+p.getId();
+        sql = sql.replace("$1", ""+p.getVendidos()+1);
+        SingletonConexao con = SingletonConexao.getConexao();
+        boolean flag = con.manipular(sql);
+        return flag;
+    }
+
+    public boolean incrementarAluguel(Produto p){
+        String sql = "update produto set prod_alugados = '$1' where prod_id = "+p.getId();
+        sql = sql.replace("$1", ""+p.getAlugados()+1);
+        SingletonConexao con = SingletonConexao.getConexao();
+        boolean flag = con.manipular(sql);
+        return flag;
+    }
+
     public ArrayList<Produto> buscarTodos(String filtro) {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto";
@@ -62,6 +78,43 @@ public class DAOProduto {
         }
         return Lista;
     }
+
+    public ArrayList<Produto> buscarMaisVendidos() {
+        ArrayList<Produto> Lista = new ArrayList<>();
+        String sql = "select * from produto order by prod_vendidos desc limit 5";
+        SingletonConexao con = SingletonConexao.getConexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            while (rs.next())
+                Lista.add(
+                        new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
+                                rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
+                                rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
+                                rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto"),rs.getInt("prod_vendidos"),rs.getInt("prod_alugados")));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return Lista;
+    }
+
+    public ArrayList<Produto> buscarMaisAlugados() {
+        ArrayList<Produto> Lista = new ArrayList<>();
+        String sql = "select * from produto order by prod_alugados desc limit 5";
+        SingletonConexao con = SingletonConexao.getConexao();
+        ResultSet rs = con.consultar(sql);
+        try {
+            while (rs.next())
+                Lista.add(
+                        new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
+                                rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
+                                rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
+                                rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto"),rs.getInt("prod_vendidos"),rs.getInt("prod_alugados")));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return Lista;
+    }
+
 
     public ArrayList<Produto> buscarAtivos(String filtro) {
         ArrayList<Produto> Lista = new ArrayList<>();
