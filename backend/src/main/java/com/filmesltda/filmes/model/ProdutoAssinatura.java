@@ -46,7 +46,7 @@ public class ProdutoAssinatura {
 
     public boolean excluir(int ass_id,int prod_id){
         DAOProdutoAssinatura dao = new DAOProdutoAssinatura();
-        if (dao.excluir(ass_id,prod_id)) {
+        if (dao.excluir(prod_id,ass_id)) {
             return true;
         }
         return false;

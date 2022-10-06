@@ -14,6 +14,7 @@ import com.filmesltda.filmes.control.AssinaturaController;
 import com.filmesltda.filmes.control.LoginController;
 import com.filmesltda.filmes.control.ProdutoAssinaturaController;
 import com.filmesltda.filmes.control.ProdutoController;
+import com.filmesltda.filmes.control.UsuarioAssinaturaController;
 import com.filmesltda.filmes.control.UsuarioController;
 import com.filmesltda.filmes.model.Assinatura;
 import com.filmesltda.filmes.model.Erro;
@@ -21,6 +22,7 @@ import com.filmesltda.filmes.model.Login;
 import com.filmesltda.filmes.model.Produto;
 import com.filmesltda.filmes.model.ProdutoAssinatura;
 import com.filmesltda.filmes.model.Usuario;
+import com.filmesltda.filmes.model.UsuarioAssinatura;
 
 @CrossOrigin
 @RestController
@@ -176,5 +178,32 @@ public class Rotas {
     @GetMapping("/produtoassinatura/buscarassinatura")
     public ResponseEntity<Object> buscarPorAssinatura(@RequestBody Assinatura a) {
         return new ResponseEntity<>(new ProdutoAssinaturaController().buscarPorAssinatura(a), HttpStatus.OK);
+    }
+
+    //Usuario - Assinatura
+
+    @PostMapping("/usuarioassinatura")
+    public ResponseEntity<Erro> inserirUA(@RequestBody ArrayList<UsuarioAssinatura> lista) {
+        return new ResponseEntity<>(new UsuarioAssinaturaController().salvar(lista), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/usuarioassinatura/excluir")
+    public ResponseEntity<Erro> excluirUA(@RequestBody UsuarioAssinatura pa){
+        return new ResponseEntity<>(new UsuarioAssinaturaController().excluir(pa), HttpStatus.OK);
+    }
+
+    @GetMapping("/usuarioassinatura/buscar")
+    public ResponseEntity<UsuarioAssinatura> buscarUmaUA(@RequestBody UsuarioAssinatura pa) {
+        return new ResponseEntity<>(new UsuarioAssinaturaController().buscarUm(pa), HttpStatus.OK);
+    }
+
+    @GetMapping("/usuarioassinatura/buscarassinatura")
+    public ResponseEntity<Object> buscarPorAssinaturaUA(@RequestBody Assinatura a) {
+        return new ResponseEntity<>(new UsuarioAssinaturaController().buscarPorAssinatura(a), HttpStatus.OK);
+    }
+
+    @GetMapping("/usuarioassinatura/buscarusuario")
+    public ResponseEntity<Object> buscarPorUsuarioUA(@RequestBody Usuario u) {
+        return new ResponseEntity<>(new UsuarioAssinaturaController().buscarPorUsurio(u), HttpStatus.OK);
     }
 }
