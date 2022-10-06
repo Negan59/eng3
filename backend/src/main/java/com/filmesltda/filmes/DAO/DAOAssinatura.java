@@ -19,7 +19,7 @@ public class DAOAssinatura {
     }
 
     public boolean alterar(Assinatura u) {
-        String sql = "update assinatura set ass_nome = '$1', ass_tipo = '$2', ass_valor = '$3',ass_status = '$4', ass_status = '$5' where ass_id = "
+        String sql = "update assinatura set ass_nome = '$1', ass_tipo = '$2', ass_valor = '$3',ass_status = '$4' where ass_id = "
                 + u.getId();
         sql = sql.replace("$1", u.getNome());
         sql = sql.replace("$2", u.getTipo());
@@ -34,7 +34,7 @@ public class DAOAssinatura {
         ArrayList<Assinatura> Lista = new ArrayList<>();
         String sql = "select * from assinatura";
         if (!filtro.isEmpty()) {
-            sql = "select * from assinatura where ass_nome LIKE " + "'" + filtro + "'";
+            sql = "select * from assinatura where upper(ass_nome) LIKE " + "'%" + filtro.toUpperCase() + "%'";
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -53,7 +53,7 @@ public class DAOAssinatura {
         ArrayList<Assinatura> Lista = new ArrayList<>();
         String sql = "select * from assinatura where ass_status = "+true;
         if (!filtro.isEmpty()) {
-            sql = "select * from assinatura where ass_nome LIKE " + "'" + filtro + "'"+" and ass_status = "+true;
+            sql = "select * from assinatura where upper(ass_nome) LIKE " + "'%" + filtro.toUpperCase() + "%'"+" and ass_status = "+true;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -72,7 +72,7 @@ public class DAOAssinatura {
         ArrayList<Assinatura> Lista = new ArrayList<>();
         String sql = "select * from assinatura where ass_status = "+false;
         if (!filtro.isEmpty()) {
-            sql = "select * from assinatura where ass_nome LIKE " + "'" + filtro + "'"+" and ass_status = "+false;
+            sql = "select * from assinatura where upper(ass_nome) LIKE " + "'%" + filtro.toUpperCase() + "%'"+" and ass_status = "+false;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);

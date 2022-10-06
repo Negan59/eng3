@@ -43,7 +43,7 @@ public class DAOProduto {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto";
         if (!filtro.isEmpty()) {
-            sql = "select * from produto where prod_titulo LIKE " + "'%" + filtro + "%'";
+            sql = "select * from produto where upper(prod_titulo) LIKE " + "'%" + filtro.toUpperCase() + "%'";
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -64,7 +64,7 @@ public class DAOProduto {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto where prod_status = "+true;
         if (!filtro.isEmpty()) {
-            sql = "select * from produto where prod_titulo LIKE " + "'%" + filtro + "%'"+" and prod_status = "+true;
+            sql = "select * from produto where upper(prod_titulo) LIKE " + "'%" + filtro.toUpperCase() + "%'"+" and prod_status = "+true;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
@@ -85,7 +85,7 @@ public class DAOProduto {
         ArrayList<Produto> Lista = new ArrayList<>();
         String sql = "select * from produto where prod_status = "+false;
         if (!filtro.isEmpty()) {
-            sql = "select * from produto where prod_titulo LIKE " + "'%" + filtro + "%'"+" and prod_status = "+false;
+            sql = "select * from produto where upper(prod_titulo) LIKE " + "'%" + filtro.toUpperCase() + "%'"+" and prod_status = "+false;
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
