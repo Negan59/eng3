@@ -56,17 +56,24 @@ public class DAOTransacao {
             sql = "select * from transacao where trans_usuid = " + id + " and trans_tipo = " + tipo;
         } else {
             sql = "select * from transacao where trans_usuid = " + id + " and trans_tipo = " + tipo
-                    + " and trans_dataexp>current_date()";
+                    + " and trans_dataexp>current_date";
         }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
         try {
             while (rs.next())
+            if(tipo == 1)
                 Lista.add(
                         new Transacao(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(),
                                 new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
                                 new DAOUsuario().buscarUm(rs.getInt("trans_usuid")),
-                                rs.getDate("trans_dataexp").toLocalDate(), rs.getInt("trans_tipo")));
+                                 rs.getInt("trans_tipo")));
+            else{
+                Lista.add(new Transacao(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(),
+                                new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
+                                new DAOUsuario().buscarUm(rs.getInt("trans_usuid")),
+                                 rs.getDate("trans_dataexp").toLocalDate(),rs.getInt("trans_tipo")));
+            }
         } catch (Exception e) {
             System.out.println(e);
         }

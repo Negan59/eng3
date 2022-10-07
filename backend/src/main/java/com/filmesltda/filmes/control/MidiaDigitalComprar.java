@@ -41,7 +41,9 @@ public class MidiaDigitalComprar extends TransacaoController {
     @Override
     public ArrayList<Produto> retornarFilmes(ArrayList<Transacao> lista) {
         ArrayList<Produto>p = new ArrayList<>();
+        System.out.println(lista.size());
         for(int i = 0;i<lista.size();i++){
+            System.out.print(lista.get(i).getProduto());
             p.add(lista.get(i).getProduto());
         }
         return p;
