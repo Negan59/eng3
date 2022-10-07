@@ -3,12 +3,41 @@ package com.filmesltda.filmes.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Transacao {
+import com.filmesltda.filmes.DAO.DAOTransacao;
+
+public class Transacao {
     private int id;
     private LocalDate data;
     private Produto produto;
     private Usuario usuario;
+    private LocalDate dataexp;
     private int tipo;
+    
+    
+    public Transacao(LocalDate data, Produto produto, Usuario usuario, LocalDate dataexp, int tipo) {
+        this.data = data;
+        this.produto = produto;
+        this.usuario = usuario;
+        this.dataexp = dataexp;
+        this.tipo = tipo;
+    }
+
+    public Transacao(int id, LocalDate data, Produto produto, Usuario usuario, LocalDate dataexp, int tipo) {
+        this.id = id;
+        this.data = data;
+        this.produto = produto;
+        this.usuario = usuario;
+        this.dataexp = dataexp;
+        this.tipo = tipo;
+    }
+
+    public LocalDate getDataexp() {
+        return dataexp;
+    }
+
+    public void setDataexp(LocalDate dataexp) {
+        this.dataexp = dataexp;
+    }
     public int getTipo() {
         return tipo;
     }
@@ -16,19 +45,6 @@ public abstract class Transacao {
         this.tipo = tipo;
     }
     public Transacao() {
-    }
-    public Transacao(LocalDate data, Produto produto, Usuario usuario, int tipo) {
-        this.data = data;
-        this.produto = produto;
-        this.usuario = usuario;
-        this.tipo = tipo;
-    }
-    public Transacao(int id, LocalDate data, Produto produto, Usuario usuario,int tipo) {
-        this.id = id;
-        this.data = data;
-        this.produto = produto;
-        this.usuario = usuario;
-        this.tipo = tipo;
     }
     public int getId() {
         return id;
@@ -55,13 +71,49 @@ public abstract class Transacao {
         this.usuario = usuario;
     }
 
-    public abstract boolean salvar();
+    public boolean salvar(int tipoPagamento,int tipoTransacao) {
+        if(tipoPagamento == 1){
+            if(tipoTransacao == 1)
+                new PagamentoPorBoleto().pagarCompra(this);
+            else
+                new PagamentoPorBoleto().pagarAlugar(this);
+        }else if(tipoPagamento == 2){
+            if(tipoTransacao == 1)
+                new PagamentoPorCartao().pagarCompra(this);
+            else
+                new PagamentoPorCartao().pagarAlugar(this);
+        }else{
+            if(tipoTransacao == 1)
+                new PagamentoPorPix().pagarCompra(this);
+            else
+                new PagamentoPorPix().pagarAlugar(this);
+        }
+        DAOTransacao dao = new DAOTransacao();
+        if (dao.salvar(this)) {
+            return true;
+        }
+        return false;
+    }
 
-    public abstract boolean atualizar();
+    public boolean atualizar() {
+        DAOTransacao dao = new DAOTransacao();
+        if (dao.alterar(this)) {
+            return true;
+        }
+        return false;
+    }
 
-    public abstract Transacao buscarUm(int id);
+    public Transacao buscarUm(int id) {
+        DAOTransacao dao = new DAOTransacao();
+        Transacao trans = dao.buscarUm(id);
+        return trans;
+    }
 
-    public abstract ArrayList<Transacao> buscarTodos(int id);
+    public ArrayList<Transacao> buscarTodos(int id) {
+        DAOTransacao dao = new DAOTransacao();
+        ArrayList<Transacao> lista = dao.buscarTodos(id);
+        return lista;
+    }
 
     
     
