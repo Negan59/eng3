@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.filmesltda.filmes.control.AssinaturaController;
 import com.filmesltda.filmes.control.LoginController;
+import com.filmesltda.filmes.control.MidiaDigitalAlugar;
+import com.filmesltda.filmes.control.MidiaDigitalComprar;
 import com.filmesltda.filmes.control.ProdutoAssinaturaController;
 import com.filmesltda.filmes.control.ProdutoController;
 import com.filmesltda.filmes.control.UsuarioAssinaturaController;
@@ -21,6 +23,7 @@ import com.filmesltda.filmes.model.Erro;
 import com.filmesltda.filmes.model.Login;
 import com.filmesltda.filmes.model.Produto;
 import com.filmesltda.filmes.model.ProdutoAssinatura;
+import com.filmesltda.filmes.model.Transacao;
 import com.filmesltda.filmes.model.Usuario;
 import com.filmesltda.filmes.model.UsuarioAssinatura;
 
@@ -215,5 +218,27 @@ public class Rotas {
     @GetMapping("/usuarioassinatura/buscarusuario")
     public ResponseEntity<Object> buscarPorUsuarioUA(@RequestBody Usuario u) {
         return new ResponseEntity<>(new UsuarioAssinaturaController().buscarPorUsurio(u), HttpStatus.OK);
+    }
+
+    //Compra
+    @PostMapping("/compra/{tipoPagamento}")
+    public ResponseEntity<Object> comprar(@RequestBody Transacao t,@PathVariable(value="tipoPagamento")int tipoPagamento){
+        return new ResponseEntity<>(new MidiaDigitalComprar().adquirirProduto(t, tipoPagamento), HttpStatus.OK);
+    }
+
+    @GetMapping("/compra/buscar")
+    public ResponseEntity<Object> buscarcomprar(@RequestBody Usuario u){
+        return new ResponseEntity<>(new MidiaDigitalComprar().consultarFilmes(u), HttpStatus.OK);
+    }
+
+    //Alugar
+    @PostMapping("/alugar/{tipoPagamento}")
+    public ResponseEntity<Object> alugar(@RequestBody Transacao t,@PathVariable(value="tipoPagamento")int tipoPagamento){
+        return new ResponseEntity<>(new MidiaDigitalAlugar().adquirirProduto(t, tipoPagamento), HttpStatus.OK);
+    }
+
+    @GetMapping("/alugar/buscar")
+    public ResponseEntity<Object> buscaralugar(@RequestBody Usuario u){
+        return new ResponseEntity<>(new MidiaDigitalAlugar().consultarFilmes(u), HttpStatus.OK);
     }
 }

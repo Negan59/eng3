@@ -44,7 +44,8 @@ public class DAOProduto {
 
     public boolean incrementarVenda(Produto p){
         String sql = "update produto set prod_vendidos = '$1' where prod_id = "+p.getId();
-        sql = sql.replace("$1", ""+p.getVendidos()+1);
+        p.setVendidos(p.getVendidos()+1);
+        sql = sql.replace("$1", ""+p.getVendidos());
         SingletonConexao con = SingletonConexao.getConexao();
         boolean flag = con.manipular(sql);
         return flag;
@@ -69,10 +70,10 @@ public class DAOProduto {
         try {
             while (rs.next())
                 Lista.add(
-                        new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
-                                rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
-                                rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
-                                rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto")));
+                    new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
+                    rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
+                    rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
+                    rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto"),rs.getInt("prod_vendidos"),rs.getInt("prod_alugados")));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -128,9 +129,9 @@ public class DAOProduto {
             while (rs.next())
                 Lista.add(
                     new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
-                    rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
-                    rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
-                    rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto")));
+                                rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
+                                rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
+                                rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto"),rs.getInt("prod_vendidos"),rs.getInt("prod_alugados")));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -149,9 +150,9 @@ public class DAOProduto {
             while (rs.next())
                 Lista.add(
                     new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
-                    rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
-                    rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
-                    rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto")));
+                                rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
+                                rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
+                                rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto"),rs.getInt("prod_vendidos"),rs.getInt("prod_alugados")));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -168,7 +169,7 @@ public class DAOProduto {
                 novo =new Produto(rs.getInt("prod_id"), rs.getString("prod_titulo"), rs.getInt("prod_ano"),
                 rs.getString("prod_desc"), rs.getString("prod_autor"), rs.getString("prod_tipo"),
                 rs.getDouble("prod_valor"), rs.getBoolean("prod_status"),
-                rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto"));
+                rs.getString("prod_responsavel"),rs.getString("prod_url"),rs.getString("prod_foto"),rs.getInt("prod_vendidos"),rs.getInt("prod_alugados"));
         } catch (Exception e) {
             System.out.println(e);
         }

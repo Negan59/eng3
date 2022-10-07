@@ -72,6 +72,8 @@ public class Transacao {
     }
 
     public boolean salvar(int tipoPagamento,int tipoTransacao) {
+        System.out.println("tipo de transação = "+tipoTransacao);
+        this.setTipo(tipoTransacao);
         if(tipoPagamento == 1){
             if(tipoTransacao == 1)
                 new PagamentoPorBoleto().pagarCompra(this);
@@ -87,7 +89,7 @@ public class Transacao {
                 new PagamentoPorPix().pagarCompra(this);
             else
                 new PagamentoPorPix().pagarAlugar(this);
-        }
+        }//tá certo até aqui
         DAOTransacao dao = new DAOTransacao();
         if (dao.salvar(this)) {
             return true;
@@ -95,24 +97,17 @@ public class Transacao {
         return false;
     }
 
-    public boolean atualizar() {
-        DAOTransacao dao = new DAOTransacao();
-        if (dao.alterar(this)) {
-            return true;
-        }
-        return false;
-    }
 
-    public Transacao buscarUm(int id) {
+    public ArrayList<Transacao> buscarTodos(int id,int tipo) {
         DAOTransacao dao = new DAOTransacao();
-        Transacao trans = dao.buscarUm(id);
-        return trans;
-    }
-
-    public ArrayList<Transacao> buscarTodos(int id) {
-        DAOTransacao dao = new DAOTransacao();
-        ArrayList<Transacao> lista = dao.buscarTodos(id);
+        ArrayList<Transacao> lista = dao.buscarTodos(id,tipo);
         return lista;
+    }
+
+    public boolean VerificarExistencia(){
+        Produto p = getProduto();
+        Usuario u = getUsuario();
+        return new DAOTransacao().VerificarExistencia(u.getId(), p.getId());
     }
 
     

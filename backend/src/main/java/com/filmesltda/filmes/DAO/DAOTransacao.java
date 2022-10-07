@@ -10,7 +10,12 @@ import com.filmesltda.filmes.model.Usuario;
 
 public class DAOTransacao {
     public boolean salvar(Transacao a) {
-        String sql = "insert into transacao (trans_data, trans_prodid, trans_usuid,trans_tipo,trans_dataexp) values ('$1','$2','$3','$4','$5')";
+        String sql;
+        if (a.getTipo() != 1) {
+            sql = "insert into transacao (trans_data, trans_prodid, trans_usuid,trans_tipo,trans_dataexp) values ('$1','$2','$3','$4','$5')";
+        } else {
+            sql = "insert into transacao (trans_data, trans_prodid, trans_usuid,trans_tipo) values ('$1','$2','$3','$4')";
+        }
         sql = sql.replace("$1", "" + a.getData());
         Produto prod = a.getProduto();
         sql = sql.replace("$2", "" + prod.getId());
@@ -18,6 +23,12 @@ public class DAOTransacao {
         sql = sql.replace("$3", "" + usu.getId());
         sql = sql.replace("$4", "" + a.getTipo());
         sql = sql.replace("$5", "" + a.getDataexp());
+        System.out.println("data - " + a.getData());
+        System.out.println("produto - " + prod.getId());
+        System.out.println("usuario - " + usu.getId());
+        System.out.println("tipo - " + a.getTipo());
+        System.out.println("dataexp - " + a.getDataexp());
+        System.out.println(sql);
         SingletonConexao con = SingletonConexao.getConexao();
         boolean flag = con.manipular(sql);
         return flag;
@@ -38,16 +49,24 @@ public class DAOTransacao {
         return flag;
     }
 
-    public ArrayList<Transacao> buscarTodos(int id) {
+    public ArrayList<Transacao> buscarTodos(int id, int tipo) {
         ArrayList<Transacao> Lista = new ArrayList<>();
-        String sql = "select * from transacao where trans_id = "+id+" and trans_tipo = 2";
+        String sql;
+        if (tipo == 1) {
+            sql = "select * from transacao where trans_usuid = " + id + " and trans_tipo = " + tipo;
+        } else {
+            sql = "select * from transacao where trans_usuid = " + id + " and trans_tipo = " + tipo
+                    + " and trans_dataexp>current_date()";
+        }
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
         try {
             while (rs.next())
                 Lista.add(
-                        new Transacao(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(), new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
-                                new DAOUsuario().buscarUm(rs.getInt("trans_usuid")), rs.getDate("trans_dataexp").toLocalDate(), rs.getInt("trans_tipo")));
+                        new Transacao(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(),
+                                new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
+                                new DAOUsuario().buscarUm(rs.getInt("trans_usuid")),
+                                rs.getDate("trans_dataexp").toLocalDate(), rs.getInt("trans_tipo")));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -62,28 +81,34 @@ public class DAOTransacao {
 
         try {
             if (rs.next())
-                novo = new Transacao(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(), new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
-                new DAOUsuario().buscarUm(rs.getInt("trans_usuid")), rs.getDate("trans_dataexp").toLocalDate(), rs.getInt("trans_tipo"));
+                novo = new Transacao(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(),
+                        new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
+                        new DAOUsuario().buscarUm(rs.getInt("trans_usuid")), rs.getDate("trans_dataexp").toLocalDate(),
+                        rs.getInt("trans_tipo"));
         } catch (Exception e) {
             System.out.println(e);
         }
         return novo;
     }
 
-    public ArrayList<Transacao> buscarValidos(int id) {
-        ArrayList<Transacao> Lista = new ArrayList<>();
-        String sql = "select * from transacao where trans_dataexp>current_date and trans_usuid = "+id+" and trans_tipo = 2";
+    public boolean VerificarExistencia(int usuid, int prodid) {
+        String sql = "select * from transacao where trans_prodid = " + prodid + " and trans_usuid = " + usuid;
         SingletonConexao con = SingletonConexao.getConexao();
         ResultSet rs = con.consultar(sql);
-        try {
-            while (rs.next())
-                Lista.add(
-                        new Transacao(rs.getInt("trans_id"), rs.getDate("trans_data").toLocalDate(), new DAOProduto().buscarUm(rs.getInt("trans_prodid")),
-                                new DAOUsuario().buscarUm(rs.getInt("trans_usuid")), rs.getDate("trans_dataexp").toLocalDate(), rs.getInt("trans_tipo")));
-        } catch (Exception e) {
-            System.out.println(e);
+
+        int numLinhas = 0;
+        try{
+        while (rs.next()) {
+            numLinhas++;
         }
-        return Lista;
+        }catch(Exception e){
+
+        }
+        System.out.println("Há " + numLinhas + " linhas na query.");
+        if (numLinhas>0) {
+            return true;
+        }
+        return false;
     }
 
 }
